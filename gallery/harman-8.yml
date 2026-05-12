@@ -3,9 +3,9 @@
 #
 # Use case:  music listening on neutral mains in a typical living room.
 # Trade-off: bass-shelf only (no treble tilt). Treble correction is left
-#            to whatever Dirac measures. Pairs well with curtain at
-#            ~10 kHz so Dirac doesn't try to flatten the speakers'
-#            natural HF rolloff.
+#            to whatever Dirac measures. If your room has a bright HF
+#            character you may want to pair this with a high-shelf cut
+#            (see harman-immersive-low-sibilance.yml).
 # Push:      shelf_level 6 = lighter, 10 = HT-bass-heavy. Raise
 #            shelf_corner to ~150–180 Hz for a wider HT-style shelf into
 #            mid-bass.

@@ -118,17 +118,17 @@ adjustments don't.
 
 ## Stage 3 — Sibilance from full-range correction
 
-**Complaint**: "With the curtain at 16 kHz, female vocals and
-cymbals have audible sibilance and a harsh, glassy quality."
+**Complaint**: female vocals and cymbals have audible sibilance and
+a harsh, glassy quality.
 
-**Diagnosis**: with the curtain at 16 kHz and a flat target above
-400 Hz, Dirac is being asked to make the room measure *flat* all the
-way up. In a real listening room the in-room response naturally rolls
-off above ~8 kHz (off-axis directivity of the speakers + absorption
-by soft furnishings and carpet; atmospheric absorption contributes a
-smaller portion). Correcting toward a flat target through that
-naturally-rolled-off band lifts the 5–10 kHz region — exactly where
-sibilance lives.
+**Diagnosis**: with a flat target above 400 Hz and Dirac correcting
+through the top octave, the room is being driven toward a *flat*
+in-room response all the way up. In a real listening room the in-room
+response naturally rolls off above ~8 kHz (off-axis directivity of
+the speakers + absorption by soft furnishings and carpet; atmospheric
+absorption contributes a smaller portion). Correcting toward a flat
+target through that naturally-rolled-off band lifts the 5–10 kHz
+region — exactly where sibilance lives.
 
 **Fix attempts** (this took a few tries):
 - Switching to the `olive_welti_inroom` base with a -1 dB/oct tilt
