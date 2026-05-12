@@ -1,0 +1,42 @@
+# Harman +8 dB base + sub-bass lift for immersion + a small high-shelf
+# cut to tame harshness/sibilance without losing the air band.
+#
+# Architecture: bass and mids follow the Harman +8 dB shelf, the 30 Hz
+# PEQ adds physical pressurisation in the sub-bass immersion band, and
+# the high-shelf at 4 kHz with -1.5 dB gives a continuous gentle slope
+# downward without surgical bumps.
+#
+# Use case:  bright rooms / bright recordings where the 5–10 kHz region
+#            feels harsh but you don't want to lose the immersive bass.
+# Trade-off: top loses ~1.5 dB across 4–20 kHz uniformly. Air is slightly
+#            less present than Harman-8 raw. If you only want to tame
+#            sibilance (5–8 kHz) while keeping 12–20 kHz air, move
+#            the shelf corner up to 6000 or 8000.
+
+name: Harman immersive (low-sibilance variant)
+description: Harman +8 + sub-bass PEQ + gentle high-shelf cut for harshness control.
+
+output:
+  path: living-room-immersive.targetcurve
+  device_name: Living Room
+  low_limit_hz: 10
+  high_limit_hz: 24000
+
+base:
+  type: harman
+  params:
+    shelf_level: 8
+
+transforms:
+  - peq:
+      freq: 30
+      gain_db: 2.5
+      q: 0.9
+  - shelf:
+      type: high
+      corner: 4000
+      gain_db: -1.5
+
+breakpoints:
+  resolution: third_octave
+  freq_range: [10, 20000]

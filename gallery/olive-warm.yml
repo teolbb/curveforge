@@ -1,0 +1,34 @@
+# Olive-Welti RR1_G with a slightly steeper treble tilt and lower tilt anchor.
+# Result: warmer, more "room-natural" sound — useful in rooms that lack
+# enough bass-mode treatment to make the speakers' off-axis HF rolloff
+# audible naturally.
+#
+# Use case:  warm/classical/jazz listening; bright rooms that need taming;
+#            speakers with rising HF response.
+# Trade-off: top end is darker than a flat-treble Harman by ~3 dB at 16 kHz, so
+#            air/sparkle is reduced. If the room is well-damped, you may
+#            lose perceived "openness."
+# Push:      treble_tilt -1.0 = standard Olive, -1.7 = darker still.
+#            tilt_anchor 1500 → tilt only kicks in higher up, leaves more
+#            of the upper-mid (1–3 kHz) presence intact.
+
+name: Olive warm
+description: Olive-Welti RR1_G with steeper tilt and lower tilt anchor.
+
+output:
+  path: olive-warm.targetcurve
+  device_name: Living Room
+  low_limit_hz: 10
+  high_limit_hz: 24000
+
+base:
+  type: olive_welti_inroom
+  params:
+    bass_shelf: 5.0
+    bass_corner: 120
+    treble_tilt: -1.5
+    tilt_anchor: 800
+
+breakpoints:
+  resolution: third_octave
+  freq_range: [10, 20000]

@@ -1,0 +1,37 @@
+# Harman +8 dB shelf plus a wide sub-bass bump centred at 20 Hz to
+# compensate for the steepening equal-loudness contours below 30 Hz —
+# adds visceral weight in the deepest octave on top of an already-bassy
+# Harman target.
+#
+# Use case:  music with deep sub-bass content (electronic, modern hip-hop,
+#            cinematic scores) on a sub that plays cleanly to 20 Hz
+#            (e.g. SVS SB-2000 and similar).
+# Trade-off: 20 Hz sits at ~+13 dB which can stress sub headroom at high SPL.
+#            Add a `rolloff` transform at 12 Hz, order 2 if the sub protests.
+# Push:      gain_db 6 = subtle, 7 = strong. Raise PEQ q to 1.5 for a
+#            narrower bump, drop to 0.7 for a broader one that spreads
+#            into 30–40 Hz.
+
+name: Harman 8 + sub-bass lift
+description: Harman bass shelf at +8 dB plus a +5 dB peak at 20 Hz for visceral sub-bass.
+
+output:
+  path: harman-8-with-sub-lift.targetcurve
+  device_name: Living Room
+  low_limit_hz: 10
+  high_limit_hz: 24000
+
+base:
+  type: harman
+  params:
+    shelf_level: 8
+
+transforms:
+  - peq:
+      freq: 20
+      gain_db: 5.0
+      q: 1.0
+
+breakpoints:
+  resolution: third_octave
+  freq_range: [10, 20000]

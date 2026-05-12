@@ -1,0 +1,35 @@
+# Floyd Toole's preferred in-room target: flat below ~500 Hz, gentle
+# downward tilt above. Toole's prescription is "preserve what well-designed
+# speakers naturally do in normal rooms" — this curve simply formalises
+# that natural behaviour as a target.
+#
+# Use case:  directionally well-behaved speakers (point-source coaxials,
+#            uniform forward-firing designs) in a room with at least some
+#            bass-mode treatment. Studio-monitoring philosophy; reference
+#            listening.
+# Trade-off: the most conservative target in the library. No bass shelf by
+#            default — Toole's argument is that most preference for "bass
+#            boost" is room/speaker-specific, not universal. If you want
+#            some bass weight, set bass_shelf to 3-6.
+# Push:      bass_shelf 4 = gentle warmth, tilt -1.0 = darker top.
+
+name: Toole in-room
+description: Flat below 500 Hz + gentle 2–3 dB/decade downward tilt above.
+
+output:
+  path: toole-monitoring.targetcurve
+  device_name: Living Room
+  low_limit_hz: 10
+  high_limit_hz: 24000
+
+base:
+  type: toole_inroom
+  params:
+    tilt: -0.7
+    tilt_corner: 500
+    bass_shelf: 0.0
+    bass_corner: 120
+
+breakpoints:
+  resolution: third_octave
+  freq_range: [10, 20000]

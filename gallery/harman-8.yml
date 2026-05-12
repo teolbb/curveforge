@@ -1,0 +1,30 @@
+# Harman-style bass shelf at +8 dB — the community-standard music target
+# for Dirac Live.
+#
+# Use case:  music listening on neutral mains in a typical living room.
+# Trade-off: bass-shelf only (no treble tilt). Treble correction is left
+#            to whatever Dirac measures. Pairs well with curtain at
+#            ~10 kHz so Dirac doesn't try to flatten the speakers'
+#            natural HF rolloff.
+# Push:      shelf_level 6 = lighter, 10 = HT-bass-heavy. Raise
+#            shelf_corner to ~150–180 Hz for a wider HT-style shelf into
+#            mid-bass.
+
+name: Harman 8
+description: First-order Harman-style bass shelf at +8 dB.
+
+output:
+  path: harman-8.targetcurve
+  device_name: Living Room
+  low_limit_hz: 10
+  high_limit_hz: 24000
+
+base:
+  type: harman
+  params:
+    shelf_level: 8
+    shelf_corner: 105
+
+breakpoints:
+  resolution: third_octave
+  freq_range: [10, 20000]

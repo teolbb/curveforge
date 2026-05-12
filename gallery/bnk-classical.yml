@@ -1,0 +1,30 @@
+# Brüel & Kjær 1974 with the published parameters: ~+3 dB plateau up to
+# 200 Hz, then a clean linear -0.83 dB/oct slope through the treble.
+#
+# Use case:  classical, jazz, vocal-forward music where the bass should
+#            anchor the image but not dominate it. Studio-monitoring
+#            workflows that want a known-quantity slope across the band.
+# Trade-off: much less bass energy than Harman targets — if you're used
+#            to a Harman +8 dB shelf this will feel polite, almost lean.
+#            The smooth treble taper is its main character.
+# Push:      bass_level 4 = a touch warmer, treble_slope -1.2 = darker.
+
+name: Brüel & Kjær 1974
+description: Original B&K 1974 target — modest bass plateau + smooth treble slope.
+
+output:
+  path: bnk-classical.targetcurve
+  device_name: Living Room
+  low_limit_hz: 10
+  high_limit_hz: 24000
+
+base:
+  type: b_and_k
+  params:
+    bass_level: 3.0
+    bass_corner: 200
+    treble_slope: -0.83
+
+breakpoints:
+  resolution: third_octave
+  freq_range: [10, 20000]

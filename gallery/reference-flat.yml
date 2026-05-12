@@ -1,0 +1,22 @@
+# Zero correction baseline. Useful for measurement comparisons — load this
+# in Dirac to see what the room actually does without any shaping target.
+#
+# Use case:  diagnostic listening / measurement comparisons; a starting
+#            point for fully custom curves built from `peq` and `shelf`
+#            transforms.
+
+name: Reference flat
+description: Zero dB at every frequency. No shaping.
+
+output:
+  path: reference-flat.targetcurve
+  device_name: Reference
+  low_limit_hz: 20
+  high_limit_hz: 20000
+
+base:
+  type: flat
+
+breakpoints:
+  resolution: third_octave
+  freq_range: [20, 20000]
