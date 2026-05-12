@@ -1,0 +1,205 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "curveforge"
+version = "0.1.0"
+description = "Build Dirac Live target curves from research-grounded base curves and composable transforms."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.11"
+authors = [{ name = "curveforge contributors" }]
+keywords = ["audio", "dirac", "target-curve", "harman", "room-correction", "eq"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: End Users/Desktop",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Multimedia :: Sound/Audio",
+]
+dependencies = [
+  "click>=8.1",
+  "numpy>=1.26",
+  "pydantic>=2.6",
+  "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+plot = [
+  "matplotlib>=3.7",
+]
+dev = [
+  "hypothesis>=6.100",
+  "matplotlib>=3.7",
+  "mypy>=1.10",
+  "pyright>=1.1.360",
+  "pytest>=8.2",
+  "pytest-cov>=5.0",
+  "ruff>=0.5",
+  "types-pyyaml>=6.0",
+]
+
+[project.scripts]
+curveforge = "curveforge.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/teolbb/curveforge"
+Issues = "https://github.com/teolbb/curveforge/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/curveforge"]
+
+# ----------------------------- ruff ----------------------------------------
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+  "E",    # pycodestyle errors
+  "W",    # pycodestyle warnings
+  "F",    # pyflakes
+  "I",    # isort
+  "B",    # flake8-bugbear
+  "C4",   # flake8-comprehensions
+  "C90",  # mccabe complexity
+  "N",    # pep8-naming
+  "UP",   # pyupgrade
+  "ANN",  # flake8-annotations (explicit return types)
+  "S",    # flake8-bandit
+  "BLE",  # flake8-blind-except
+  "FBT",  # flake8-boolean-trap
+  "A",    # flake8-builtins
+  "COM",  # flake8-commas
+  "DTZ",  # flake8-datetimez
+  "EM",   # flake8-errmsg
+  "ISC",  # flake8-implicit-str-concat
+  "ICN",  # flake8-import-conventions
+  "G",    # flake8-logging-format
+  "INP",  # flake8-no-pep420
+  "PIE",  # flake8-pie
+  "T20",  # flake8-print (no print/pprint)
+  "PT",   # flake8-pytest-style
+  "Q",    # flake8-quotes
+  "RSE",  # flake8-raise
+  "RET",  # flake8-return
+  "SIM",  # flake8-simplify
+  "TID",  # flake8-tidy-imports
+  "TCH",  # flake8-type-checking
+  "ARG",  # flake8-unused-arguments
+  "PTH",  # flake8-use-pathlib
+  "PL",   # pylint
+  "TRY",  # tryceratops
+  "PERF", # perflint
+  "RUF",  # ruff-specific
+  "D",    # pydocstyle (public docstrings)
+]
+ignore = [
+  "COM812",  # conflicts with formatter
+  "ISC001",  # conflicts with formatter
+  "D203",    # one-blank-line-before-class (incompatible with D211)
+  "D213",    # multi-line-summary-second-line (incompatible with D212)
+  "PLR0913", # too-many-arguments — replaced by max-args below
+  "TRY003",  # avoid-long-messages — pragmatic for clear errors
+]
+
+[tool.ruff.lint.mccabe]
+# Cyclomatic complexity: 12 (matches llm-pipelines)
+max-complexity = 12
+
+[tool.ruff.lint.pylint]
+# Mirror llm-pipelines: max 4 params, force param objects above that.
+max-args = 4
+max-statements = 50
+max-branches = 12
+max-returns = 6
+max-locals = 15
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = [
+  "S101",    # asserts allowed
+  "D",       # docstrings not required
+  "ANN",     # annotations not required
+  "PLR2004", # magic numbers OK
+  "PLR0915", # long test bodies OK
+]
+"examples/**/*.py" = [
+  "T201",    # print allowed
+  "D",
+  "INP001",
+]
+"src/curveforge/curves/__init__.py" = ["F401"]      # re-exports for registry
+"src/curveforge/transforms/__init__.py" = ["F401"]  # re-exports for registry
+"tools/**/*.py" = ["INP001"]                        # standalone scripts
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+# ----------------------------- mypy ----------------------------------------
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_unreachable = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+# disallow_any_explicit is intentionally OFF: Pydantic boundary validators
+# legitimately accept raw YAML/dict payloads (typed Any). Strict elsewhere
+# (no implicit any, untyped defs disallowed, generics required).
+disallow_any_explicit = false
+disallow_any_generics = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+no_implicit_optional = true
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = ["tests.*"]
+disallow_untyped_defs = false
+disallow_any_explicit = false
+
+# --------------------------- pydantic --------------------------------------
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+
+# --------------------------- pyright ---------------------------------------
+[tool.pyright]
+include = ["src", "tests"]
+pythonVersion = "3.11"
+# `standard` keeps pyright as a secondary checker (catches real bugs mypy
+# may miss), while mypy in strict mode owns the substantive type contract.
+# Strict mode trips on every Unknown introduced at the YAML/JSON-schema
+# boundary, which is noise for this codebase.
+typeCheckingMode = "standard"
+reportMissingTypeStubs = "warning"
+
+# --------------------------- pytest ----------------------------------------
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-ra --strict-markers --strict-config"
+testpaths = ["tests"]
+xfail_strict = true
+
+[tool.coverage.run]
+source = ["src/curveforge"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+  "pragma: no cover",
+  "if TYPE_CHECKING:",
+  "raise NotImplementedError",
+]
+show_missing = true
+fail_under = 85
