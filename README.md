@@ -2,7 +2,7 @@
 
 Build Dirac Live target curves from research-grounded recipes.
 
-![Shipped target curves overview](docs/img/curves-overview.svg)
+![Shipped target curves overview](https://raw.githubusercontent.com/teolbb/curveforge/main/docs/img/curves-overview.svg)
 
 `curveforge` is a small CLI that turns a YAML recipe into a `.targetcurve`
 file ready to load into Dirac Live 2/3. It ships with a curated library of
@@ -60,7 +60,7 @@ Worked recipes for common situations. Each one builds cleanly with
 A lean, balanced Harman shelf for accurate mixing-style playback. Light
 bass weight — the right baseline if you want clarity over physical impact.
 
-![Critical listening curve](docs/img/recipe-critical.svg)
+![Critical listening curve](https://raw.githubusercontent.com/teolbb/curveforge/main/docs/img/recipe-critical.svg)
 
 ```yaml
 base:
@@ -74,7 +74,7 @@ Harman +10 with the shelf extended into mid-bass (`shelf_corner: 150`),
 plus a +4 dB peak at 25 Hz for visceral sub impact. Compensates for the
 steepening equal-loudness contours at low listening levels.
 
-![Cinema curve](docs/img/recipe-cinema.svg)
+![Cinema curve](https://raw.githubusercontent.com/teolbb/curveforge/main/docs/img/recipe-cinema.svg)
 
 ```yaml
 base:
@@ -90,7 +90,7 @@ Modest bass plateau, smooth 0.83 dB/oct treble taper. Anchored without
 being bloated; smooth without being dark. The closest thing to a "natural
 room" target.
 
-![B&K curve](docs/img/recipe-bnk.svg)
+![B&K curve](https://raw.githubusercontent.com/teolbb/curveforge/main/docs/img/recipe-bnk.svg)
 
 ```yaml
 base:
@@ -104,7 +104,7 @@ Low-shelf with corner at the sub-to-mains crossover. Use this for
 independent sub-channel correction in Dirac; set Dirac's `HIGHLIMITHZ` to
 match the `crossover_hz` value.
 
-![Sub-only curve](docs/img/recipe-sub.svg)
+![Sub-only curve](https://raw.githubusercontent.com/teolbb/curveforge/main/docs/img/recipe-sub.svg)
 
 ```yaml
 base:
@@ -118,7 +118,7 @@ One YAML knob sweeps Harman from lean to cinema — `curveforge plot`
 overlays several recipes side-by-side so you can see exactly what each
 parameter does.
 
-![Shelf level comparison](docs/img/comparison-shelf-levels.svg)
+![Shelf level comparison](https://raw.githubusercontent.com/teolbb/curveforge/main/docs/img/comparison-shelf-levels.svg)
 
 ```sh
 curveforge plot harman-4.yml harman-6.yml harman-8.yml harman-10.yml \

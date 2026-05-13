@@ -6,6 +6,12 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [0.1.0.post1]
+
+### Fixed
+- README image references are now absolute URLs so they render on the
+  PyPI project page (relative paths only resolve on GitHub).
+
 ## [0.1.0]
 
 Initial public release.

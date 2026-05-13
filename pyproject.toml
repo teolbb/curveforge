@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "curveforge"
-version = "0.1.0"
+version = "0.1.0.post1"
 description = "Build Dirac Live target curves from research-grounded base curves and composable transforms."
 readme = "README.md"
 license = { file = "LICENSE" }
