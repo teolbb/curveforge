@@ -214,6 +214,66 @@ the *parametric* model behind each research target, so you can:
   vs Toole at +6 dB bass)
 - Treat target curves as code: version-controlled, diffable, reproducible
 
+## FAQ
+
+### What is a Dirac Live target curve?
+
+A target curve tells Dirac Live what frequency response you want from your
+speakers in your room. Dirac measures your actual in-room response, then
+computes correction filters that shape it toward the target. A flat target
+rarely sounds good — bass loses its weight and the highs feel sharp. The
+standard recommendations (Harman, Olive-Welti, Brüel & Kjær, Toole) all
+build in a deliberate bass shelf and a gentle treble tilt because listeners
+consistently prefer that shape over flat in blind preference tests.
+
+### Harman, Olive-Welti, B&K, Toole — which curve should I use?
+
+Quick orientation, by listening goal:
+
+- **Harman** — community-standard, gentle bass shelf around 100 Hz, treble
+  close to flat. Safe default for music; nothing surprising.
+- **Olive-Welti in-room** — slightly more aggressive bass and a steeper
+  treble tilt than Harman. The current Harman research target; often
+  preferred in blind preference studies.
+- **Brüel & Kjær 1974** — flatter mid/high, more "studio monitor"
+  character. Use when you want a reference, not a flavored sound.
+- **Toole in-room** — gentle downward slope across the whole band, no
+  shelf. Good when your room already loads up the bass on its own.
+- **Welti subwoofer** — sub-only curve; pair with one of the above for the
+  rest of the band.
+
+Try a couple — curveforge makes overlay comparison cheap
+(`curveforge plot a.yml b.yml -o overlay.svg`).
+
+### How is this different from REW or the Dirac Live app itself?
+
+REW (Room EQ Wizard) and the Dirac Live app let you edit target curves
+visually, breakpoint by breakpoint. That works once. If you want to try
++0.5 dB on the bass shelf, you redraw the curve.
+
+curveforge inverts the workflow: your target is a *recipe* — a few
+parameters or a YAML file. Editing means changing a number. Result:
+reproducible (lives in git), parametric (sweep and overlay), composable
+(stack transforms — peaking EQ, shelves, tilts — on any base). REW and the
+Dirac Live app are still the right tools for measuring and applying
+correction; curveforge is for designing the target that goes into them.
+
+### Do I need to take room measurements to use curveforge?
+
+No. curveforge produces *target* curves — what you want your room to sound
+like. Dirac Live (the desktop app) takes the measurements and computes the
+correction filters to hit that target. You hand Dirac the `.targetcurve`
+file curveforge generates. The two tools sit on either side of the
+measurement step.
+
+### Does curveforge work with Dirac Live 2 and 3?
+
+Yes. The `.targetcurve` format is shared between Dirac Live 2 and Dirac
+Live 3, and curveforge writes the format both versions consume. Tested
+against Dirac Live 3 on macOS and Windows; should work identically on the
+embedded Dirac builds shipped with miniDSP, NAD, Storm Audio, and similar
+hardware.
+
 ## References
 
 Each curve module ships with full citations accessible via
